@@ -1,7 +1,10 @@
 package com.example.provatassiop1nativo.controller;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import androidx.annotation.Nullable;
@@ -32,6 +35,20 @@ public class HomeActivity extends Activity {
 
         ListView listNoticeView = findViewById(R.id.list_view_notice);
         listNoticeView.setAdapter(adapter);
+
+        listNoticeView.setClickable(true);
+        listNoticeView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(HomeActivity.this, NewsActivity.class);
+
+                intent.putExtra("title", noticeList.get(position).getTitle());
+                intent.putExtra("descricao", noticeList.get(position).getDescricao());
+                intent.putExtra("hour", noticeList.get(position).getHour());
+
+                startActivity(intent);
+            }
+        });
 
     }
 }
